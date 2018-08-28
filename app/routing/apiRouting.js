@@ -1,6 +1,13 @@
 // Basic route that sends the user first to the AJAX Page
 
 let friendsArray = require("../data/friends");
+const express = require("express");
+const bodyParser = require("body-parser");
+
+
+let app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const apiRead = app.get("/api/friends", function(req, res) {
   return res.json(friendsArray.friendsArray);
