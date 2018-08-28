@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const homeRoute = app.get(htmlRoutes.publicPaths.home, function(req, res) {
+  console.log(friendsArray);
   res.sendFile(path.join(__dirname, htmlRoutes.localPaths.home));
 });
 
@@ -32,8 +33,6 @@ const apiWrite = app.post(apiRoutes.apiPaths.route, (req, res) => {
   friendsArray.friendsArray.push(newFriend);
   res.json(newFriend);
 });
-
-
 
 // Starts the server to begin listening
 // =============================================================
