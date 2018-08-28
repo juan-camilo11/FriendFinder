@@ -24,7 +24,7 @@ app.get(htmlRoutes.publicPaths.survey, (req, res) => {
 });
 
 app.get(apiRoutes.apiPaths.route, function(req, res) {
-  return res.json(friendsArray);
+  return console.log("hello");
 });
 
 app.post(apiRoutes.apiPaths.route, (req, res) => {
