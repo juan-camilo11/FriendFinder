@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const homeRoute = app.get(htmlRoutes.publicPaths.home, function(req, res) {
-  console.log(friendsArray);
   res.sendFile(path.join(__dirname, htmlRoutes.localPaths.home));
 });
 
