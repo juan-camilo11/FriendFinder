@@ -16,11 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const homeRoute = app.get(htmlRoutes.publicPaths.home, function(req, res) {
-  res.sendFile(path.join(__dirname, "home.html"));
+  res.sendFile(path.join(__dirname, htmlRoutes.localPaths.home));
 });
 
 const surveyRoute = app.get(htmlRoutes.publicPaths.survey, (req, res) => {
-  res.sendFile(path.join(__dirname, "survey.html"));
+  res.sendFile(path.join(__dirname, htmlRoutes.localPaths.survey));
 });
 
 const apiRead = app.get(apiRoutes.apiPaths.route, function(req, res) {
