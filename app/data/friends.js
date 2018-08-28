@@ -1,5 +1,5 @@
 let friendsArray = [];
 
 module.export = {
-    friendsArray = friendsArray
-}
+  friendsArray: friendsArray
+};
