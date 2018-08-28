@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-let friendsArray = require("./app/data/friends.js");
+const friends = require("./app/data/friends");
 const htmlRoutes = require("./app/routing/htmlRouting.js");
 const apiRoutes = require("./app/routing/apiRouting.js");
 
@@ -23,13 +23,15 @@ app.get(htmlRoutes.publicPaths.survey, (req, res) => {
   res.sendFile(path.join(__dirname, htmlRoutes.localPaths.survey));
 });
 
+//routes are fine, need to figure out what is going on with the array
 app.get(apiRoutes.apiPaths.route, function(req, res) {
-  return res.send("hello");
+  return res.json(friends.array);
 });
 
+//routes are fine
 app.post(apiRoutes.apiPaths.route, (req, res) => {
   let newFriend = req.body;
-  friendsArray.push(newFriend);
+  friends.array.push(newFriend);
   res.json(newFriend);
 });
 
