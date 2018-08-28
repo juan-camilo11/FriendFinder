@@ -15,21 +15,21 @@ let port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const homeRoute = app.get(htmlRoutes.publicPaths.home, function(req, res) {
+app.get(htmlRoutes.publicPaths.home, function(req, res) {
   res.sendFile(path.join(__dirname, htmlRoutes.localPaths.home));
 });
 
-const surveyRoute = app.get(htmlRoutes.publicPaths.survey, (req, res) => {
+app.get(htmlRoutes.publicPaths.survey, (req, res) => {
   res.sendFile(path.join(__dirname, htmlRoutes.localPaths.survey));
 });
 
-const apiRead = app.get(apiRoutes.apiPaths.route, function(req, res) {
-  return res.json(friendsArray.friendsArray);
+app.get(apiRoutes.apiPaths.route, function(req, res) {
+  return res.json(friendsArray);
 });
 
-const apiWrite = app.post(apiRoutes.apiPaths.route, (req, res) => {
+app.post(apiRoutes.apiPaths.route, (req, res) => {
   let newFriend = req.body;
-  friendsArray.friendsArray.push(newFriend);
+  friendsArray.push(newFriend);
   res.json(newFriend);
 });
 
