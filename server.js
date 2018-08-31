@@ -33,7 +33,7 @@ app.get(apiRoutes.apiPaths.route, function(req, res) {
 app.post(apiRoutes.apiPaths.route, (req, res) => {
   let newFriend = req.body;
   //match will be the person the newly added array matches with
-  let match;
+  let match = "";
   let sum = 0;
   let newSum = 0;
   //if the friends array is empty, we respond with a false
@@ -68,9 +68,9 @@ app.post(apiRoutes.apiPaths.route, (req, res) => {
         newSum = 0;
       }
     });
-
+    friends.array.push(newFriend);
     //the response sent back is the name of the person the user matched with
-    res.send(friends.array[index].name);
+    res.send(friends.array[match].name);
   }
 });
 
