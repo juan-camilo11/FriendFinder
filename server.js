@@ -50,12 +50,12 @@ app.post(apiRoutes.apiPaths.route, (req, res) => {
     friends.array.map((x, index) => {
       if (index === 0) {
         for (i = 0; i < x.scores.length; i++) {
-          let diff = Math.abs(x.scores[i] - newFriend.scores[i]);
+          let diff = Math.abs(parseInt(x.scores[i]) - parseInt(newFriend.scores[i]));
           sum = sum + diff;
         }
       } else {
         for (i = 0; i < x.scores.length; i++) {
-          let diff = Math.abs(x.scores[i] - newFriend.scores[i]);
+          let diff = Math.abs(parseInt(x.scores[i]) - parseInt(newFriend.scores[i]));
           newSum = newsum + diff;
         }
         //this compared the latest sum to the lowest sum prior
