@@ -36,14 +36,14 @@
             <div class="col-12">
                 <h3>Your Picture (Required)</h3>
                 <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                        </div>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </div>
-                      </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="picture" aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -53,7 +53,7 @@
                 <h3>Question 1</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionOne">Your mind is always buzzing with un-explored ideas or plans</label>
-                    <select class="form-control" id="qOne">
+                    <select class="form-control" id="q1">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -71,7 +71,7 @@
                 <h3>Question 2</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionTwo">You rely more on experience than imagination</label>
-                    <select class="form-control" id="qTwo">
+                    <select class="form-control" id="q2">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -89,7 +89,7 @@
                 <h3>Question 3</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionThree">You stay relaxed under pressure</label>
-                    <select class="form-control" id="qThree">
+                    <select class="form-control" id="q3">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -107,7 +107,7 @@
                 <h3>Question 4</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionFour">You rarely do something out of sheer curiosity</label>
-                    <select class="form-control" id="qFour">
+                    <select class="form-control" id="q4">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -125,7 +125,7 @@
                 <h3>Question 5</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionFive">People rarely upset you</label>
-                    <select class="form-control" id="qFive">
+                    <select class="form-control" id="q5">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -143,7 +143,7 @@
                 <h3>Question 6</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionSix">You find it difficult to relate to other people's feelings</label>
-                    <select class="form-control" id="qSix">
+                    <select class="form-control" id="q6">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -161,7 +161,7 @@
                 <h3>Question 7</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionSeven">You believe that the truth is more important than people's feelings</label>
-                    <select class="form-control" id="qSeven">
+                    <select class="form-control" id="q7">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -179,7 +179,7 @@
                 <h3>Question 8</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionEight">You think that everyones views should be respected even though they are not supported by facts</label>
-                    <select class="form-control" id="qEight">
+                    <select class="form-control" id="q8">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -197,7 +197,7 @@
                 <h3>Question 9</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionNine">You rarely get carried away by fantasies or ideas</label>
-                    <select class="form-control" id="qNine">
+                    <select class="form-control" id="q9">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -215,7 +215,7 @@
                 <h3>Question 10</h3>
                 <form class="form-group">
                     <label class="my-1 mr-2" for="questionTen">You feel more energetic around a group of people</label>
-                    <select class="form-control" id="qTen">
+                    <select class="form-control" id="q10">
                         <option selected>Choose...</option>
                         <option value="1">1 Strongly disagree</option>
                         <option value="2">2 Disagree</option>
@@ -241,8 +241,22 @@
 
         $("#submit").on("click", (event) => {
             event.preventDefault();
-            $.post("/api/friends", data => {
+            let tempArray = [];
+            for (let i = 0; i < 10; i++) {
+                tempArray.push(parseInt($("#q" + (i + 1)).val()));
+            }
+            let tempObj = {
+                name: $("#name").val().trim(),
+                photo: $("#picture").val().trim(),
+                scores: tempArray,
 
+            }
+            $.post("/api/friends", tempObj, (data) => {
+                if(!data){
+                    alert("There are no other users for you to match with!");
+                } else {
+                    alert("Your match is " + data);
+                }
 
             });
 
