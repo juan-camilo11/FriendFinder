@@ -1,14 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Friend Finder survey</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <meta charset="UTF-8">
+    <title>Friend Finder Survey</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
+
 <body>
-    It works!!!!!!
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Survey</h1>
+            <hr>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12">
+                <form class="form-group">
+                    <label class="my-1 mr-2" for="questionOne">blah blah blah</label>
+                    <select class="form-control" id="qOne">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </form>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+                <form class="form-group">
+                    <label class="my-1 mr-2" for="questionTwo">blah blah blah</label>
+                    <select class="form-control" id="qTwo">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </form>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+                <form class="form-group">
+                    <label class="my-1 mr-2" for="questionThree">blah blah blah</label>
+                    <select class="form-control" id="qTwo">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </form>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+                <button class="btn btn-danger btn-lg" id="submit">
+                    <span class="fa fa-plus"></span>Submit </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+
+        $("#submit").on("click", (event) => {
+            event.preventDefault();
+            $.post("/api/friends", data => {
+
+
+            });
+
+        });
+
+
+    </script>
 </body>
+
 </html>
