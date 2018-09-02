@@ -16,6 +16,6 @@ let surveyPath = app.get("/survey", (req, res) => {
 });
 
 module.exports = {
-  homePath: homePath,
-  surveyPath: surveyPath
+  homePath: homePath(),
+  surveyPath: surveyPath()
 };

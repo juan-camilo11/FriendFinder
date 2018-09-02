@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //home page route and callback
-app.use(htmlRoutes.homePath);
+app.use(htmlRoutes.homePath());
 
 //survey page route and callback
-app.use(htmlRoutes.surveyPath);
+app.use(htmlRoutes.surveyPath());
 
 //routes are fine, need to figure out what is going on with the array
 app.get(apiRoutes.apiPaths.route, function(req, res) {
