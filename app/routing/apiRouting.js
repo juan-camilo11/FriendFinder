@@ -11,11 +11,11 @@ let friends = friendsArray.array;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-let readApi = app.get("../data/friends.js", (req, res) => {
+let readApi = app.get("/api/friends", (req, res) => {
   return res.json(friends);
 });
 
-let writeApi = app.post("../data/friends.js", (req, res) => {
+let writeApi = app.post("/api/friends", (req, res) => {
 
   //this sets new Friend equal to the JSON object passed from the client
   let newFriend = req.body;
