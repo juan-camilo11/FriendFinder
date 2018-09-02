@@ -1,14 +1,19 @@
-let publicPaths = {
-  home: "/",
-  survey: "/survey"
-};
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
 
-let localPaths = {
-  home: "./app/public/home.html",
-  survey: "./app/public/survey.html"
-};
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+let homePath = app.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "./app/public/homr.html"));
+});
+
+let surveyPath = app.get("/survey", (req, res) => {
+  res.sendFile(path.join(__dirname, "./app/public/survey.html"));
+});
 
 module.exports = {
-  publicPaths: publicPaths,
-  localPaths: localPaths
+  homePath: homePath,
+  surveyPath: surveyPath
 };

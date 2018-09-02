@@ -15,13 +15,8 @@ let port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get(htmlRoutes.publicPaths.home, function(req, res) {
-  res.sendFile(path.join(__dirname, htmlRoutes.localPaths.home));
-});
-
-app.get(htmlRoutes.publicPaths.survey, (req, res) => {
-  res.sendFile(path.join(__dirname, htmlRoutes.localPaths.survey));
-});
+app.use(htmlRoutes.homePath);
+app.use(htmlRoutes.surveyPath);
 
 //routes are fine, need to figure out what is going on with the array
 app.get(apiRoutes.apiPaths.route, function(req, res) {
