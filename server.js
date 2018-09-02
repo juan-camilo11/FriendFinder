@@ -15,7 +15,11 @@ let port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(htmlRoutes);
+//home page route and callback
+app.use(htmlRoutes.homePath);
+
+//survey page route and callback
+app.use(htmlRoutes.surveyPath);
 
 //routes are fine, need to figure out what is going on with the array
 app.get(apiRoutes.apiPaths.route, function(req, res) {
