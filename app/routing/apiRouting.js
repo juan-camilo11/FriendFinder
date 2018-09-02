@@ -16,13 +16,14 @@ let readApi = app.get("/api/friends", (req, res) => {
 });
 
 let writeApi = app.post("/api/friends", (req, res) => {
-
   //this sets new Friend equal to the JSON object passed from the client
   let newFriend = req.body;
   //match will be the index of the person in the friends array the newly added person matches with
   let match = "";
+  let matchArray = [];
   let sum = 0;
   let newSum = 0;
+  let responseArray = [];
   //if the friends array is empty, we respond with a false
   //this lets the front end know that the array is empty and there is no one
   //the first user can match with
@@ -45,6 +46,7 @@ let writeApi = app.post("/api/friends", (req, res) => {
         //initialized match, if all other sums in the array are greater than the first person's
         //the match will be the first person in the array
         match = index;
+        matchArray.push(match);
       } else {
         for (i = 0; i < x.scores.length; i++) {
           let diff = Math.abs(
@@ -52,19 +54,48 @@ let writeApi = app.post("/api/friends", (req, res) => {
           );
           newSum = newSum + diff;
         }
-        //this compared the latest sum to the lowest sum prior
-        //if the new sum is lower than the new sum, sum (lowest) is replaced
-        //this also updates who the match is
-        if (newSum < sum) {
+
+        //this set of if statements serve to identify who the match would be
+        //if newSum is qual to sum, this means that there are multiple people the new user can match with
+        //we want to display this to the user, so we push all indicies of friends that would match
+        //into the array Match array
+        //If we encounter a newSum that is lower than the previous lowest sum, we set newSum equal to sum
+        //wipe the matchArray array of all previous indicies and fill it with the latest index to match the new user
+        if (newSum === sum) {
+          matchArray.push(index);
+        } else if (newSum < sum) {
           sum = newSum;
           match = index;
+          matchArray = [match];
         }
         newSum = 0;
       }
     });
+
+    //add the latest profile to the data set
     friends.push(newFriend);
-    //the response sent back is the name of the person the user matched with
-    res.send(friends[match].name);
+
+    //if there is only one element in the match array, we respond to the client request with the name
+    //of the person they matched with
+    //else if there is more than one element in the array, we want to return the list of people that they matched with
+    //best way to return would probably be an array with the name and picture of the person they matched with
+    if (matchArray.length < 2) {
+      let tempObj = {
+        name: friends[match].name,
+        picture: friends[match].photo
+      };
+      responseArray.push(tempObj);
+      return res.json(responseArray);
+    } else {
+      matchArray.map(x => {
+        let tempObj = {
+          name: friends[x].name,
+          picture: friends[x].photo
+        };
+        responseArray.push(tempObj);
+      });
+      return res.json(responseArray);
+    }
   }
 });
 
