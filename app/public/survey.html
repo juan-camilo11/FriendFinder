@@ -40,7 +40,7 @@
                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="picture" aria-describedby="inputGroupFileAddon01">
+                        <input type="file" class="form-control-file" id="picture" aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                 if(!data){
                     alert("There are no other users for you to match with!");
                 } else {
-                    alert("You matched with" + data.length + "people");
+                    alert("You matched with " + data.length + " people");
                 }
 
             });
