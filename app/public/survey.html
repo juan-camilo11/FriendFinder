@@ -34,11 +34,20 @@
         <div class="row">
 
             <div class="col-12">
-                <h3>Your Picture (Required)</h3>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="picture" required>
-                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                  </div>
+
+                <div class="form-group">
+                    <label>Picture (Required)</label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                Browse…
+                                <input type="file" id="imgInp">
+                            </span>
+                        </span>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    <img id='img-upload' />
+                </div>
             </div>
         </div>
 
@@ -232,30 +241,77 @@
     </div>
 
     <script type="text/javascript">
+        $(document).ready(() => {
 
 
-        $("#submit").on("click", (event) => {
-            event.preventDefault();
-            let tempArray = [];
-            for (let i = 0; i < 10; i++) {
-                tempArray.push(parseInt($("#q" + (i + 1)).val()));
-            }
-            let tempObj = {
-                name: $("#name").val().trim(),
-                photo: $("#picture").val().trim(),
-                scores: tempArray,
+            $(document).on('change', '.btn-file :file', () => {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
 
-            }
-            $.post("/api/friends", tempObj, (data) => {
-                if (!data) {
-                    alert("There are no other users for you to match with!");
+            $('.btn-file :file').on('fileselect', function (event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
                 } else {
-                    alert("You matched with " + data.length + " people");
+                    if (log) alert(log);
                 }
 
             });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-        });
+                    reader.onload = function (e) {
+                        $('#img-upload').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function () {
+                readURL(this);
+            });
+            //event listener for submit button
+            //call back takes all data from input fields and stores it in a temp object
+            //temp object is then posted to API
+            $("#submit").on("click", (event) => {
+                event.preventDefault();
+                let tempArray = [];
+                for (let i = 0; i < 10; i++) {
+                    tempArray.push(parseInt($("#q" + (i + 1)).val()));
+                }
+                let tempObj = {
+                    name: $("#name").val().trim(),
+                    photo: $("#imgInp").val().trim(),
+                    scores: tempArray,
+
+                }
+
+                //clear all fields
+                for (let i = 0; i < 10; i++) {
+                    $("#q" + (i + 1)).val("");
+                }
+                $("#name").val("");
+                $("#picture").val("");
+
+
+                $.post("/api/friends", tempObj, (data) => {
+                    if (!data) {
+                        alert("There are no other users for you to match with!");
+                    } else {
+                        alert("You matched with " + data.length + " people");
+                    }
+
+                });
+
+            });
+        })
 
 
     </script>
