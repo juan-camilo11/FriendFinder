@@ -321,7 +321,7 @@
                     $("#q" + (i + 1)).val("");
                 }
                 $("#name").val("");
-                $("#img-upload").empty();
+                $("#img-upload").attr('src', "");
 
 
                 $.post("/api/friends", tempObj, (data) => {
