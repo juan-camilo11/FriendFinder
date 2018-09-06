@@ -57,7 +57,9 @@
 
             <div class="col-12">
                 <div class="form-group">
-                    <label><h3>Upload Image</h3></label>
+                    <label>
+                        <h3>Upload Image</h3>
+                    </label>
                     <div class="input-group">
                         <span class="input-group-btn">
                             <button class="btn btn-default btn-file">
@@ -67,6 +69,8 @@
                         </span>
                         <input type="text" class="form-control" readonly>
                     </div>
+                    <br>
+                    <br>
                     <img id='img-upload' />
                 </div>
 
@@ -256,14 +260,37 @@
         <div class="row">
 
             <div class="col-12">
-                <button class="btn btn-danger btn-lg" id="submit">
+                <button class="btn btn-danger btn-lg" id="submit" data-toggle="modal" data-target="matches">
                     <span class="fa fa-plus"></span>Submit </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal pop up for matches -->
+
+    <div class="modal fade" id="matches" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Your Matches</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
         $(document).ready(() => {
+            let newElement = $(`<div>`);
+            newElement.addClass("card-body");
 
             $(document).on('change', '.btn-file :file', function () {
                 var input = $(this),
@@ -325,10 +352,21 @@
 
 
                 $.post("/api/friends", tempObj, (data) => {
+                    $('.modal-body').empty();
                     if (!data) {
-                        alert("There are no other users for you to match with!");
+                        newElement.text("There are no friends for you to match with");
+                        $('.modal-body').append(newElement);
                     } else {
-                        alert(data[0].photo);
+                        data.map((x) => {
+                            let imageElement = $(`<img`);
+                            let pageBreak = $(`<br>`);
+                            imageElement.attr("src", x.photo);
+                            newElement.append(imageElement);
+                            newElement.append(`<h5> ${x.name} </h5>`);
+                            $('.modal-body').append(newElement);
+                            $('.modal-body').append(pageBreak);
+
+                        });
                     }
 
                 });
