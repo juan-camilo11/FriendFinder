@@ -289,8 +289,7 @@
 
     <script type="text/javascript">
         $(document).ready(() => {
-            let newElement = $(`<div>`);
-            newElement.addClass("card-body");
+            
 
             $(document).on('change', '.btn-file :file', function () {
                 var input = $(this),
@@ -352,17 +351,22 @@
 
 
                 $.post("/api/friends", tempObj, (data) => {
+
                     $('.modal-body').empty();
                     if (!data) {
+                        let newElement = $(`<div>`);
+                        newElement.addClass("card-body");
                         newElement.text("There are no friends for you to match with");
                         $('.modal-body').append(newElement);
                     } else {
                         data.map((x) => {
+                            let newElement = $(`<div>`);
+                            newElement.addClass("card-body");
                             let imageElement = $(`<img>`);
                             let pageBreak = $(`<br>`);
                             let nameElement = $(`<h5>`);
                             nameElement.text(x.name);
-                            imageElement.attr("src", x.photo);
+                            imageElement.attr('src', x.photo);
                             newElement.append(imageElement);
                             newElement.append(nameElement);
                             $('.modal-body').append(newElement);
