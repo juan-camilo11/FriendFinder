@@ -358,11 +358,13 @@
                         $('.modal-body').append(newElement);
                     } else {
                         data.map((x) => {
-                            let imageElement = $(`<img`);
+                            let imageElement = $(`<img>`);
                             let pageBreak = $(`<br>`);
+                            let nameElement = $(`<h5>`);
+                            nameElement.text(x.name);
                             imageElement.attr("src", x.photo);
                             newElement.append(imageElement);
-                            newElement.append(`<h5> ${x.name} </h5>`);
+                            newElement.append(nameElement);
                             $('.modal-body').append(newElement);
                             $('.modal-body').append(pageBreak);
 
