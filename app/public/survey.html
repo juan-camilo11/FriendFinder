@@ -252,7 +252,7 @@
 
             }
             $.post("/api/friends", tempObj, (data) => {
-                if(!data){
+                if (!data) {
                     alert("There are no other users for you to match with!");
                 } else {
                     alert("You matched with " + data.length + " people");
