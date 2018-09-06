@@ -366,7 +366,7 @@
                             let pageBreak = $(`<br>`);
                             let nameElement = $(`<h5>`);
                             nameElement.text(x.name);
-                            imageElement.attr('src', x.photo);
+                            imageElement.attr('src', `${x.photo}`);
                             newElement.append(imageElement);
                             newElement.append(nameElement);
                             $('.modal-body').append(newElement);
